@@ -5,8 +5,142 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Light_Probe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Light Probe" Height="450" Width="750" Icon="Arduino-Icon-32.ico">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Overview" Name="TAB_Overview">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Upper Left Sensor (%)" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_ULSensor" Height="25" Width="150" Value="50" Foreground="#FFFF0000" />
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Upper Right Sensor" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_URSensor" Height="25" Width="150" Value="50" Foreground="#FF0000FF"/>
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Lower Left Sensor" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_LLSensor" Height="25" Width="150" Value="50" Foreground="#FFFF0000"/>
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Lower Right Sensor" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_LRSensor" Height="25" Width="150" Value="50" Foreground="#FF0000FF"/>
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Overall Average Reading" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_SensorAverage" Height="25" Width="150" Value="50" Foreground="Magenta"/>
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <GridSplitter Grid.Column="0" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Upper Left Sensor Tuning" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_ULSensorDecrease" Content="Decrease"/>
+                            <Button Name="BT_ULSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Upper Right Sensor Tuning" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_URSensorDecrease" Content="Decrease"/>
+                            <Button Name="BT_URSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Lower Left Sensor Tuning" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_LLSensorDecrease" Content="Decrease"/>
+                            <Button Name="BT_LLSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Lower Right Sensor Tuning" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_LRSensorDecrease" Content="Decrease"/>
+                            <Button Name="BT_LRSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Horizontal Balance" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="-100"/>
+                            <ProgressBar Name="PB_HorizontalBalance" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Vertical Balance" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="-100"/>
+                            <ProgressBar Name="PB_VerticalABalance" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
+                            <Label Content="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Select a COM Port"/>
+                        <ComboBox Name="CB_Ports"  Width="125" SelectionChanged="CB_Ports_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Last Message Received" HorizontalAlignment="Center"/>
+                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" Text="" Width="184"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sensors" Name="TAB_Sensors">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Servos" Name="TAB_Servos">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Bluetooth" Name="TAB_Bluetooth">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="USB" Name="TAB_Usb">
+                <Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
