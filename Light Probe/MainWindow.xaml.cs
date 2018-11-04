@@ -57,6 +57,8 @@ namespace Light_Probe
                     PB_URSensor.Value = int.Parse(message.Substring(10, 3));
                     PB_LLSensor.Value = int.Parse(message.Substring(17, 3));
                     PB_LRSensor.Value = int.Parse(message.Substring(24, 3));
+                    PB_hServoAngle.Value = int.Parse(message.Substring(33, 3));
+                    PB_vServoAngle.Value = int.Parse(message.Substring(42, 3));
                     //Set the overall average
                     PB_SensorAverage.Value = (PB_ULSensor.Value +
                         PB_URSensor.Value +

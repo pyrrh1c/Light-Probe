@@ -125,52 +125,53 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Bluetooth" Name="TAB_Bluetooth">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="USB" Name="TAB_Usb">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Servo Control" HorizontalAlignment="Center"/>
+                        <RadioButton Name="RB_ServoControlManual" Content="Automatic"/>
+                        <RadioButton Name="RB_ServoControlAutomatic" Content="Manual"/>
+                    </StackPanel>
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Horizontal Servo Angle" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_hServoAngle" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
+                            <Label Content="180"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Vertical Servo Angle" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="0"/>
+                            <ProgressBar Name="PB_vServoAngle" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
+                            <Label Content="180"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Serial Communications" Name="TAB_Serial">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Select a COM Port"/>
                         <ComboBox Name="CB_Ports"  Width="125" SelectionChanged="CB_Ports_SelectionChanged"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Last Message Received" HorizontalAlignment="Center"/>
-                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" Text="" Width="184"/>
+                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" Text="" Width="700"/>
                     </StackPanel>
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
                 </Grid>
             </TabItem>
         </TabControl>
