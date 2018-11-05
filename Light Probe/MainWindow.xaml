@@ -8,6 +8,30 @@
         Title="Light Probe" Height="450" Width="750" Icon="Arduino-Icon-32.ico">
     <Grid>
         <TabControl>
+            <TabItem Header="Serial Communications" Name="TAB_Serial">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Select a COM Port"/>
+                        <ComboBox Name="CB_Ports"  Width="125" SelectionChanged="CB_Ports_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Last Message Received" HorizontalAlignment="Center"/>
+                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" Text="" Width="700"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
             <TabItem Header="Sensors" Name="TAB_Sensors">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -147,30 +171,6 @@
                             <ProgressBar Name="PB_vServoAngle" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
                             <Label Content="180"/>
                         </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Serial Communications" Name="TAB_Serial">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Select a COM Port"/>
-                        <ComboBox Name="CB_Ports"  Width="125" SelectionChanged="CB_Ports_SelectionChanged"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Last Message Received" HorizontalAlignment="Center"/>
-                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" Text="" Width="700"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

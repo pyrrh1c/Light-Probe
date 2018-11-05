@@ -82,57 +82,27 @@ void loop()
 	//write the assembled message to the serial port
 	Serial.println(nextLine);
   
-	//move the horizontal servo
-    if (ulValInt < urValInt)
-    {
-      if ((urValInt - ulValInt) > 25 )
-      {
-        if (hServCurPos < 135)
-          {
-            hServCurPos = hServCurPos + 5;
-            hServo.write(hServCurPos);
-          }
-      }
-    }
-    if (ulValInt > urValInt)
-    {
-      if ((ulValInt - urValInt) > 25 )
-      {
-        if (hServCurPos > 45)
-        {
-          hServCurPos = hServCurPos - 5;
-          hServo.write(hServCurPos);
-        }
-      }
-    }
+	//Move the horizontal servo
+  Serial.println(hServCurPos + CalculateNextMove(ulValInt, urValInt));
+  hServCurPos = hServCurPos + CalculateNextMove(ulValInt, urValInt);
+  if (CheckServoConstraints(hServCurPos))
+  {
+	  hServo.write(hServCurPos);
+  }
 
 	//Move the vertical servo
-    if (llValInt < lrValInt)
-    {
-      if ((lrValInt - llValInt) > 25 )
-      {
-        if (vServCurPos < 135)
-          {
-            vServCurPos = vServCurPos + 5;
-            vServo.write(vServCurPos);
-          }
-      }
-    }
-    if (llValInt > lrValInt)
-    {
-      if ((llValInt - lrValInt) > 25 )
-      {
-        if (vServCurPos > 45)
-        {
-          vServCurPos = vServCurPos - 5;
-          vServo.write(vServCurPos);
-        }
-      }
-    }
+  Serial.println(vServCurPos + CalculateNextMove(llValInt, lrValInt));
+  vServCurPos = vServCurPos + CalculateNextMove(llValInt, lrValInt);
+	if (CheckServoConstraints(vServCurPos))
+	{
+	  vServo.write(vServCurPos + CalculateNextMove(llValInt, lrValInt));
+	}
 
 	//Pause execution for a moment so the servo can move
-	delay(50);
+	delay(500);
 }
+
+
 
 //this function takes an integer and produces a string with padded 0's
 String ConvertAndPad (int i)
@@ -143,4 +113,81 @@ String ConvertAndPad (int i)
 		s = "0" + s;
 	} while (s.length() < 3);
 	return s;
+}
+
+
+
+//Calculate how much and what direction the servo should move
+//s1 represents either the left or lower servo, s2 is right or upper
+int CalculateNextMove(int s1, int s2)
+{
+	int multiplier; //Determines which way the servo will turn.
+	int difference; //The difference between s1 and s2.
+	int magnitude; //How much to move the servo.
+	int result; //This is the final result and is returned.
+  String temp;
+
+	//Set the multiplier. -1 is counterclockwise, 0 is nothing, 1 is clockwise
+	if (s1 < s2)
+	{
+		multiplier = 1;
+	}	
+	else if (s1 > s2)
+	{
+		multiplier = -1;
+	}
+	else
+	{
+		multiplier = 0;
+	}
+  temp = "Multiplier is " + String(multiplier);
+  Serial.println(temp);
+
+	//Calculate the difference between sensors.  This will be a positive integer.
+	difference = s1 - s2;
+	//Make the difference positive if it isn't already
+	if(difference < 0)
+	{
+		difference = difference * -1;
+	}
+  temp = "Difference is " + String(difference);
+  Serial.println(temp);
+
+	//Calculate magnitude of the next move
+	if (difference < 10)
+	{
+		magnitude = 2;
+	} 
+	else if ((difference >= 10) and (difference < 20))
+	{
+		magnitude = 5;
+	}
+	else if (difference >= 20)
+	{
+		magnitude = 10;
+	}
+  temp = "Magnitude is " + String(magnitude);
+  Serial.println(temp);
+
+	//Calculate the result.
+	result = magnitude * multiplier;
+  temp = "Result is " + String(result);
+  Serial.println(temp);
+
+	//Return the result
+	return result;
+} 
+
+//Checks if a given angle is within what the servo can actually handle
+//Returns true if the angle is between 45 and 135
+bool CheckServoConstraints(int i)
+{
+  if ((i > 45) and (i < 135))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
