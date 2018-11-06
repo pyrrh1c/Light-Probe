@@ -8,7 +8,7 @@
         Title="Light Probe" Height="450" Width="750" Icon="Arduino-Icon-32.ico">
     <Grid>
         <TabControl>
-            <TabItem Header="Serial Communications" Name="TAB_Serial">
+            <TabItem Header="Startup" Name="TAB_Startup">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -20,15 +20,26 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Label Content="Select a COM Port"/>
                         <ComboBox Name="CB_Ports"  Width="125" SelectionChanged="CB_Ports_SelectionChanged"/>
+                        <Button Name="BT_RescanComPorts" Content="Rescan Com Ports"  Width="125" Height="23" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Automatic Calibration"/>
+                        <Button Name="BT_AutoCalibration" Content="Run Auto Calibration"  Width="125" Height="23" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Config File Path" HorizontalAlignment="Center"/>
+                        <TextBox Name="TB_ConfigFile" Height="23" Width="150" />
+                        <Button Name="BT_ConfigLoad" Content="Load Config" Margin="0,5,0,0"/>
+                        <Button Name="BT_ConfigSave" Content="Save Config" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,0,5,0">
                         <Label Content="Last Message Received" HorizontalAlignment="Center"/>
-                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Center" Height="23"  TextWrapping="Wrap" Text="" Width="700"/>
+                        <TextBox Name="TB_LastMessage" HorizontalAlignment="Stretch" Height="350" TextWrapping="Wrap" Text="" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -41,97 +52,108 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Grid.Column="0" Content="Sensor Readings" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Upper Left Sensor (%)" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>
                             <ProgressBar Name="PB_ULSensor" Height="25" Width="150" Value="50" Foreground="#FFFF0000" />
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_ULSensor" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Upper Right Sensor" HorizontalAlignment="Center" />
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>
                             <ProgressBar Name="PB_URSensor" Height="25" Width="150" Value="50" Foreground="#FF0000FF"/>
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_URSensor" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Lower Left Sensor" HorizontalAlignment="Center" />
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>
                             <ProgressBar Name="PB_LLSensor" Height="25" Width="150" Value="50" Foreground="#FFFF0000"/>
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_LLSensor" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Lower Right Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>
                             <ProgressBar Name="PB_LRSensor" Height="25" Width="150" Value="50" Foreground="#FF0000FF"/>
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_LRSensor" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
 
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Upper Left Sensor Tuning" HorizontalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="Sensor Calibration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Upper Left Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Name="BT_ULSensorDecrease" Content="Decrease"/>
                             <Button Name="BT_ULSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Upper Right Sensor Tuning" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Upper Right Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Name="BT_URSensorDecrease" Content="Decrease"/>
                             <Button Name="BT_URSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Lower Left Sensor Tuning" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Lower Left Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Name="BT_LLSensorDecrease" Content="Decrease"/>
                             <Button Name="BT_LLSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Lower Right Sensor Tuning" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Lower Right Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Name="BT_LRSensorDecrease" Content="Decrease"/>
                             <Button Name="BT_LRSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
                     <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Grid.Column="2" Content="Sensor Analysis" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Horizontal Balance" HorizontalAlignment="Center" />
+
                         <StackPanel Orientation="Horizontal">
                             <Label Content="-100"/>
                             <ProgressBar Name="PB_HorizontalBalance" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_HorizontalBalance" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Vertical Balance" HorizontalAlignment="Center" />
                         <StackPanel Orientation="Horizontal">
                             <Label Content="-100"/>
                             <ProgressBar Name="PB_VerticalABalance" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_VerticalBalance" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Overall Average Reading" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>
-                            <ProgressBar Name="PB_SensorAverage" Height="25" Width="150" Value="50" Foreground="Magenta"/>
+                            <ProgressBar Name="PB_SensorAverage" Height="24" Width="150" Value="50" Foreground="Magenta"/>
                             <Label Content="100"/>
                         </StackPanel>
+                        <TextBox Name="TB_SensorAverage" Height="23" Width="100" Margin="0,5,0,0"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -144,18 +166,50 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Servo Control" HorizontalAlignment="Center"/>
-                        <RadioButton Name="RB_ServoControlManual" Content="Automatic"/>
+                    <Label Grid.Column="0" Content="Servo Control" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Servo Mode" HorizontalAlignment="Center"/>
+                        <RadioButton Name="RB_ServoControlManual" Content="Automatic" IsChecked="True"/>
                         <RadioButton Name="RB_ServoControlAutomatic" Content="Manual"/>
                     </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Horizontal Servo" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_HServoIncrease" Content="Move Left" IsEnabled="False"/>
+                            <Button Name="BT_HServoDecrease" Content="Move Right" Margin="10,0,0,0" IsEnabled="False"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Vertical Servo" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_VServoIncrease" Content="Move Up" IsEnabled="False"/>
+                            <Button Name="BT_VServoDecrease" Content="Move Down" Margin="10,0,0,0" IsEnabled="False"/>
+                        </StackPanel>
+                    </StackPanel>
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Grid.Column="1" Content="Servo Calibration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Horizontal Servo" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_HServoDecreaseTuning" Content="Decrease"/>
+                            <Button Name="BT_HServoIncreaseTuning" Content="Increase" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Vertical Servo" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Name="BT_VServoDecreaseTuning" Content="Decrease"/>
+                            <Button Name="BT_VServoIncreaseTuning" Content="Increase" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
+                    <Label Grid.Column="3" Content="Servo Positions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Horizontal Servo Angle" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>
@@ -163,8 +217,7 @@
                             <Label Content="180"/>
                         </StackPanel>
                     </StackPanel>
-                    <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Vertical Servo Angle" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="0"/>

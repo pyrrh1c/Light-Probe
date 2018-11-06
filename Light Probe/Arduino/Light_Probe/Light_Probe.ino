@@ -33,8 +33,8 @@ String vServCurPosStr;
 //Declare the string variable used to send serial data
 String nextLine;
 
-//the Setup() function runs once at arduino boot time
 void setup()
+//the Setup() function runs once at arduino boot time
 {
 	//Start serial communication
 	Serial.begin(9600);
@@ -51,8 +51,8 @@ void setup()
 	delay(1000);
 }
  
-//the loop() function runs in a loop forever
 void loop()
+//the loop() function runs in a loop forever
 {
 	//The C# input expects ranges between 0 and 100, so we map values
 	ulValInt = map(analogRead(ulPin), 0, 1024, 0, 100);
@@ -102,10 +102,8 @@ void loop()
 	delay(500);
 }
 
-
-
-//this function takes an integer and produces a string with padded 0's
 String ConvertAndPad (int i)
+//this function takes an integer and produces a string with padded 0's
 {
 	String s = String(i);
 	do
@@ -115,11 +113,9 @@ String ConvertAndPad (int i)
 	return s;
 }
 
-
-
+int CalculateNextMove(int s1, int s2)
 //Calculate how much and what direction the servo should move
 //s1 represents either the left or lower servo, s2 is right or upper
-int CalculateNextMove(int s1, int s2)
 {
 	int multiplier; //Determines which way the servo will turn.
 	int difference; //The difference between s1 and s2.
@@ -140,8 +136,7 @@ int CalculateNextMove(int s1, int s2)
 	{
 		multiplier = 0;
 	}
-  temp = "Multiplier is " + String(multiplier);
-  Serial.println(temp);
+
 
 	//Calculate the difference between sensors.  This will be a positive integer.
 	difference = s1 - s2;
@@ -150,8 +145,7 @@ int CalculateNextMove(int s1, int s2)
 	{
 		difference = difference * -1;
 	}
-  temp = "Difference is " + String(difference);
-  Serial.println(temp);
+
 
 	//Calculate magnitude of the next move
 	if (difference < 10)
@@ -166,21 +160,19 @@ int CalculateNextMove(int s1, int s2)
 	{
 		magnitude = 10;
 	}
-  temp = "Magnitude is " + String(magnitude);
-  Serial.println(temp);
+
 
 	//Calculate the result.
 	result = magnitude * multiplier;
-  temp = "Result is " + String(result);
-  Serial.println(temp);
+
 
 	//Return the result
 	return result;
 } 
 
+bool CheckServoConstraints(int i)
 //Checks if a given angle is within what the servo can actually handle
 //Returns true if the angle is between 45 and 135
-bool CheckServoConstraints(int i)
 {
   if ((i > 45) and (i < 135))
   {
