@@ -23,6 +23,7 @@ namespace Light_Probe
     {
         string[] ports = SerialPort.GetPortNames();
         SerialPort port = new SerialPort();
+        //string controlState = "AUTO";
 
         public MainWindow()
         {
@@ -110,6 +111,135 @@ namespace Light_Probe
                 targetBar.Foreground = Brushes.Green;
             }
 
+        }
+
+        //Event Handler for the Servo Control Radio Group
+        private void RB_ServoControlAutomatic_Checked(object sender, RoutedEventArgs e)
+        {         
+            /*
+            port.WriteLine("MODE=AUTO;");
+            controlState = "AUTO";
+            BT_HServoIncrease.IsEnabled = false;
+            BT_HServoDecrease.IsEnabled = false;
+            BT_VServoIncrease.IsEnabled = false;
+            BT_VServoDecrease.IsEnabled = false;
+            */
+        }
+
+        //Event Handler for the Servo Control Radio Group
+        private void RB_ServoControlManual_Checked(object sender, RoutedEventArgs e)
+        {
+            /*
+            port.WriteLine("MODE=MANUAL;");
+            controlState = "MANUAL";
+            BT_HServoIncrease.IsEnabled = true;
+            BT_HServoDecrease.IsEnabled = true;
+            BT_VServoIncrease.IsEnabled = true;
+            BT_VServoDecrease.IsEnabled = true;
+            */
+        }
+
+        private void BT_HServoIncrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_HServoDecrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_VServoIncrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_VServoDecrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_HServoDecreaseTuning_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("HSERVO:DECREASE;");
+        }
+
+        private void BT_HServoIncreaseTuning_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("HSERVO:INCREASE;");
+        }
+
+        private void BT_VServoDecreaseTuning_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("VSERVO:DECREASE;");
+        }
+
+        private void BT_VServoIncreaseTuning_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("VSERVO:INCREASE;");
+        }
+
+        private void BT_ULSensorDecrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_ULSensorIncrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_URSensorDecrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_URSensorIncrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_LLSensorDecrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_LLSensorIncrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_LRSensorDecrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_LRSensorIncrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_RescanComPorts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_AutoCalibration_Click(object sender, RoutedEventArgs e)
+        {
+            AutoCalibration auto = new AutoCalibration();
+            auto.ShowDialog();
+        }
+
+        private void BT_ConfigLoad_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigFileWindow configFileWindow = new ConfigFileWindow();
+            configFileWindow.ShowDialog();
+        }
+
+        private void BT_ConfigSave_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigFileWindow configFileWindow = new ConfigFileWindow();
+            configFileWindow.ShowDialog();
         }
     }
 }

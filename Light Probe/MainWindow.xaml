@@ -24,17 +24,17 @@
                     <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Label Content="Select a COM Port"/>
                         <ComboBox Name="CB_Ports"  Width="125" SelectionChanged="CB_Ports_SelectionChanged"/>
-                        <Button Name="BT_RescanComPorts" Content="Rescan Com Ports"  Width="125" Height="23" Margin="0,5,0,0"/>
+                        <Button Name="BT_RescanComPorts" Content="Rescan Com Ports"  Width="125" Height="23" Margin="0,5,0,0" Click="BT_RescanComPorts_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Automatic Calibration"/>
-                        <Button Name="BT_AutoCalibration" Content="Run Auto Calibration"  Width="125" Height="23" />
+                        <Button Name="BT_AutoCalibration" Content="Run Auto Calibration"  Width="125" Height="23" Click="BT_AutoCalibration_Click" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Config File Path" HorizontalAlignment="Center"/>
                         <TextBox Name="TB_ConfigFile" Height="23" Width="150" />
-                        <Button Name="BT_ConfigLoad" Content="Load Config" Margin="0,5,0,0"/>
-                        <Button Name="BT_ConfigSave" Content="Save Config" Margin="0,5,0,0"/>
+                        <Button Name="BT_ConfigLoad" Content="Load Config" Margin="0,3,0,0" Click="BT_ConfigLoad_Click"/>
+                        <Button Name="BT_ConfigSave" Content="Save Config" Margin="0,3,0,0" Click="BT_ConfigSave_Click"/>
                     </StackPanel>
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
                     <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,0,5,0">
@@ -100,29 +100,29 @@
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Upper Left Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_ULSensorDecrease" Content="Decrease"/>
-                            <Button Name="BT_ULSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                            <Button Name="BT_ULSensorDecrease" Content="Decrease" Click="BT_ULSensorDecrease_Click"/>
+                            <Button Name="BT_ULSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_ULSensorIncrease_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Upper Right Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_URSensorDecrease" Content="Decrease"/>
-                            <Button Name="BT_URSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                            <Button Name="BT_URSensorDecrease" Content="Decrease" Click="BT_URSensorDecrease_Click"/>
+                            <Button Name="BT_URSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_URSensorIncrease_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Lower Left Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_LLSensorDecrease" Content="Decrease"/>
-                            <Button Name="BT_LLSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                            <Button Name="BT_LLSensorDecrease" Content="Decrease" Click="BT_LLSensorDecrease_Click"/>
+                            <Button Name="BT_LLSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_LLSensorIncrease_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Lower Right Sensor" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_LRSensorDecrease" Content="Decrease"/>
-                            <Button Name="BT_LRSensorIncrease" Content="Increase" Margin="10,0,0,0"/>
+                            <Button Name="BT_LRSensorDecrease" Content="Decrease" Click="BT_LRSensorDecrease_Click"/>
+                            <Button Name="BT_LRSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_LRSensorIncrease_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
@@ -157,7 +157,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Servos" Name="TAB_Servos">
+            <TabItem Header="Servos" Name="TAB_Servos" Height="22" Margin="-1.667,-2,-1.667,0" VerticalAlignment="Bottom">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -174,21 +174,21 @@
                     <Label Grid.Column="0" Content="Servo Control" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Servo Mode" HorizontalAlignment="Center"/>
-                        <RadioButton Name="RB_ServoControlManual" Content="Automatic" IsChecked="True"/>
-                        <RadioButton Name="RB_ServoControlAutomatic" Content="Manual"/>
+                        <RadioButton Name="RB_ServoControlManual" Content="Automatic" IsChecked="True" Checked="RB_ServoControlAutomatic_Checked" />
+                        <RadioButton Name="RB_ServoControlAutomatic" Content="Manual" Checked="RB_ServoControlManual_Checked" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Horizontal Servo" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_HServoIncrease" Content="Move Left" IsEnabled="False"/>
-                            <Button Name="BT_HServoDecrease" Content="Move Right" Margin="10,0,0,0" IsEnabled="False"/>
+                            <Button Name="BT_HServoDecrease" Content="Move Left" IsEnabled="False" Click="BT_HServoDecrease_Click"/>
+                            <Button Name="BT_HServoIncrease" Content="Move Right" Margin="10,0,0,0" IsEnabled="False" Click="BT_HServoIncrease_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Vertical Servo" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_VServoIncrease" Content="Move Up" IsEnabled="False"/>
-                            <Button Name="BT_VServoDecrease" Content="Move Down" Margin="10,0,0,0" IsEnabled="False"/>
+                            <Button Name="BT_VServoIncrease" Content="Move Up" IsEnabled="False" Click="BT_VServoIncrease_Click"/>
+                            <Button Name="BT_VServoDecrease" Content="Move Down" Margin="10,0,0,0" IsEnabled="False" Click="BT_VServoDecrease_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
@@ -196,15 +196,15 @@
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Horizontal Servo" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_HServoDecreaseTuning" Content="Decrease"/>
-                            <Button Name="BT_HServoIncreaseTuning" Content="Increase" Margin="10,0,0,0"/>
+                            <Button Name="BT_HServoDecreaseTuning" Content="Decrease" Click="BT_HServoDecreaseTuning_Click"/>
+                            <Button Name="BT_HServoIncreaseTuning" Content="Increase" Margin="10,0,0,0" Click="BT_HServoIncreaseTuning_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Vertical Servo" HorizontalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BT_VServoDecreaseTuning" Content="Decrease"/>
-                            <Button Name="BT_VServoIncreaseTuning" Content="Increase" Margin="10,0,0,0"/>
+                            <Button Name="BT_VServoDecreaseTuning" Content="Decrease" Click="BT_VServoDecreaseTuning_Click"/>
+                            <Button Name="BT_VServoIncreaseTuning" Content="Increase" Margin="10,0,0,0" Click="BT_VServoIncreaseTuning_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
