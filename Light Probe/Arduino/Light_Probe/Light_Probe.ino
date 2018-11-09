@@ -33,6 +33,17 @@ String vServCurPosStr;
 //Declare the string variable used to send serial data
 String nextLine;
 
+//Declare the calibration variables (servo and sensor offsets)
+int hOffsetl
+int vOffset;
+int ulOffset;
+int urOffset;
+int llOffset;
+int lrOffset;
+
+//Declare the manual override status variable
+bool mOverride;
+
 void setup()
 //the Setup() function runs once at arduino boot time
 {
