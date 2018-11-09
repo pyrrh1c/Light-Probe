@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO.Ports;
 
 namespace Light_Probe
@@ -78,22 +67,6 @@ namespace Light_Probe
             });
         }
 
-        private void CB_Ports_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            port.Close();
-            port = null;
-            port = new SerialPort(CB_Ports.SelectedValue.ToString(), 9600);
-            try
-            {
-                port.Open();
-                port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-            }
-            catch
-            {
-                TB_LastMessage.Text = "Port Error";
-            }
-        }
-
         private void UpdateValue(ProgressBar targetBar, double targetValue)
         {
             targetBar.Value = targetValue;
@@ -113,71 +86,48 @@ namespace Light_Probe
 
         }
 
-        //Event Handler for the Servo Control Radio Group
-        private void RB_ServoControlAutomatic_Checked(object sender, RoutedEventArgs e)
-        {         
-            /*
-            port.WriteLine("MODE=AUTO;");
-            controlState = "AUTO";
-            BT_HServoIncrease.IsEnabled = false;
-            BT_HServoDecrease.IsEnabled = false;
-            BT_VServoIncrease.IsEnabled = false;
-            BT_VServoDecrease.IsEnabled = false;
-            */
-        }
+        //Methods from the Startup Tab
 
-        //Event Handler for the Servo Control Radio Group
-        private void RB_ServoControlManual_Checked(object sender, RoutedEventArgs e)
+        private void CB_Ports_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            /*
-            port.WriteLine("MODE=MANUAL;");
-            controlState = "MANUAL";
-            BT_HServoIncrease.IsEnabled = true;
-            BT_HServoDecrease.IsEnabled = true;
-            BT_VServoIncrease.IsEnabled = true;
-            BT_VServoDecrease.IsEnabled = true;
-            */
+            port.Close();
+            port = null;
+            port = new SerialPort(CB_Ports.SelectedValue.ToString(), 9600);
+            try
+            {
+                port.Open();
+                port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
+            }
+            catch
+            {
+                TB_LastMessage.Text = "Port Error";
+            }
         }
 
-        private void BT_HServoIncrease_Click(object sender, RoutedEventArgs e)
+        private void BT_AutoCalibration_Click(object sender, RoutedEventArgs e)
         {
-
+            AutoCalibration auto = new AutoCalibration();
+            auto.ShowDialog();
         }
 
-        private void BT_HServoDecrease_Click(object sender, RoutedEventArgs e)
+        private void BT_ConfigLoad_Click(object sender, RoutedEventArgs e)
         {
-
+            ConfigFileWindow configFileWindow = new ConfigFileWindow();
+            configFileWindow.ShowDialog();
         }
 
-        private void BT_VServoIncrease_Click(object sender, RoutedEventArgs e)
+        private void BT_ConfigSave_Click(object sender, RoutedEventArgs e)
         {
-
+            ConfigFileWindow configFileWindow = new ConfigFileWindow();
+            configFileWindow.ShowDialog();
         }
 
-        private void BT_VServoDecrease_Click(object sender, RoutedEventArgs e)
+        private void BT_RescanComPorts_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void BT_HServoDecreaseTuning_Click(object sender, RoutedEventArgs e)
-        {
-            port.WriteLine("HOFFSET:DECREASE;");
-        }
-
-        private void BT_HServoIncreaseTuning_Click(object sender, RoutedEventArgs e)
-        {
-            port.WriteLine("HOFFSET:INCREASE;");
-        }
-
-        private void BT_VServoDecreaseTuning_Click(object sender, RoutedEventArgs e)
-        {
-            port.WriteLine("VOFFSET:DECREASE;");
-        }
-
-        private void BT_VServoIncreaseTuning_Click(object sender, RoutedEventArgs e)
-        {
-            port.WriteLine("VOFFSET:INCREASE;");
-        }
+        //Methods from the Sensors Tab
 
         private void BT_ULSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
@@ -219,27 +169,77 @@ namespace Light_Probe
             port.WriteLine("ROFFSET:INCREASE;");
         }
 
-        private void BT_RescanComPorts_Click(object sender, RoutedEventArgs e)
+        //Methods from the Servos Tab
+
+        //Event Handler for the Servo Control Radio Group
+        private void RB_ServoControlAutomatic_Checked(object sender, RoutedEventArgs e)
+        {
+            /*
+            port.WriteLine("MODE=AUTO;");
+            controlState = "AUTO";
+            BT_HServoIncrease.IsEnabled = false;
+            BT_HServoDecrease.IsEnabled = false;
+            BT_VServoIncrease.IsEnabled = false;
+            BT_VServoDecrease.IsEnabled = false;
+            */
+        }
+
+        //Event Handler for the Servo Control Radio Group
+        private void RB_ServoControlManual_Checked(object sender, RoutedEventArgs e)
+        {
+            /*
+            port.WriteLine("MODE=MANUAL;");
+            controlState = "MANUAL";
+            BT_HServoIncrease.IsEnabled = true;
+            BT_HServoDecrease.IsEnabled = true;
+            BT_VServoIncrease.IsEnabled = true;
+            BT_VServoDecrease.IsEnabled = true;
+            */
+        }
+
+        private void BT_HServoDecrease_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void BT_AutoCalibration_Click(object sender, RoutedEventArgs e)
+        private void BT_HServoIncrease_Click(object sender, RoutedEventArgs e)
         {
-            AutoCalibration auto = new AutoCalibration();
-            auto.ShowDialog();
+
         }
 
-        private void BT_ConfigLoad_Click(object sender, RoutedEventArgs e)
+        private void BT_VServoDecrease_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFileWindow configFileWindow = new ConfigFileWindow();
-            configFileWindow.ShowDialog();
+
         }
 
-        private void BT_ConfigSave_Click(object sender, RoutedEventArgs e)
+        private void BT_VServoIncrease_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFileWindow configFileWindow = new ConfigFileWindow();
-            configFileWindow.ShowDialog();
+
+        }
+
+        private void BT_HServoDecreaseCalibration_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("HOFFSET:DECREASE;");
+        }
+
+        private void BT_HServoIncreaseCalibration_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("HOFFSET:INCREASE;");
+        }
+
+        private void BT_VServoDecreaseCalibration_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("VOFFSET:DECREASE;");
+        }
+
+        private void BT_VServoIncreaseCalibration_Click(object sender, RoutedEventArgs e)
+        {
+            port.WriteLine("VOFFSET:INCREASE;");
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
