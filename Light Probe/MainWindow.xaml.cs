@@ -161,62 +161,62 @@ namespace Light_Probe
 
         private void BT_HServoDecreaseTuning_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("HSERVO:DECREASE;");
+            port.WriteLine("HOFFSET:DECREASE;");
         }
 
         private void BT_HServoIncreaseTuning_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("HSERVO:INCREASE;");
+            port.WriteLine("HOFFSET:INCREASE;");
         }
 
         private void BT_VServoDecreaseTuning_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("VSERVO:DECREASE;");
+            port.WriteLine("VOFFSET:DECREASE;");
         }
 
         private void BT_VServoIncreaseTuning_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("VSERVO:INCREASE;");
+            port.WriteLine("VOFFSET:INCREASE;");
         }
 
         private void BT_ULSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("ULOFFSET:DECREASE;");
         }
 
         private void BT_ULSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("ULOFFSET:INCREASE;");
         }
 
         private void BT_URSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("UROFFSET:DECREASE;");
         }
 
         private void BT_URSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("UROFFSET:INCREASE;");
         }
 
         private void BT_LLSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("LLOFFSET:DECREASE;");
         }
 
         private void BT_LLSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("LLOFFSET:INCREASE;");
         }
 
         private void BT_LRSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("LROFFSET:DECREASE;");
         }
 
         private void BT_LRSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("ROFFSET:INCREASE;");
         }
 
         private void BT_RescanComPorts_Click(object sender, RoutedEventArgs e)
