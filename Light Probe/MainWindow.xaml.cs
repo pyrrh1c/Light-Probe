@@ -130,42 +130,43 @@ namespace Light_Probe
 
         private void BT_ULSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("ULOFFSET:DECREASE;");
+            //Write a handler for these to address a situatio where the port is closed!
+            TransmitCommand("ULOFFSET-DECREASE;");
         }
 
         private void BT_ULSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("ULOFFSET:INCREASE;");
+            TransmitCommand("ULOFFSET-INCREASE;");
         }
 
         private void BT_URSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("UROFFSET:DECREASE;");
+            TransmitCommand("UROFFSET-DECREASE;");
         }
 
         private void BT_URSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("UROFFSET:INCREASE;");
+            TransmitCommand("UROFFSET-INCREASE;");
         }
 
         private void BT_LLSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("LLOFFSET:DECREASE;");
+            TransmitCommand("LLOFFSET-DECREASE;");
         }
 
         private void BT_LLSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("LLOFFSET:INCREASE;");
+            TransmitCommand("LLOFFSET-INCREASE;");
         }
 
         private void BT_LRSensorDecrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("LROFFSET:DECREASE;");
+            TransmitCommand("LROFFSET-DECREASE;");
         }
 
         private void BT_LRSensorIncrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("ROFFSET:INCREASE;");
+            TransmitCommand("ROFFSET-INCREASE;");
         }
 
         //Methods from the Servos Tab
@@ -174,7 +175,7 @@ namespace Light_Probe
         private void RB_ServoControlAutomatic_Checked(object sender, RoutedEventArgs e)
         {
             /*
-            port.WriteLine("MODE=AUTO;");
+            TransmitCommand("MODE=AUTO;");
             controlState = "AUTO";
             BT_HServoIncrease.IsEnabled = false;
             BT_HServoDecrease.IsEnabled = false;
@@ -187,7 +188,7 @@ namespace Light_Probe
         private void RB_ServoControlManual_Checked(object sender, RoutedEventArgs e)
         {
             /*
-            port.WriteLine("MODE=MANUAL;");
+            TransmitCommand("MODE=MANUAL;");
             controlState = "MANUAL";
             BT_HServoIncrease.IsEnabled = true;
             BT_HServoDecrease.IsEnabled = true;
@@ -198,42 +199,54 @@ namespace Light_Probe
 
         private void BT_HServoDecrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("HSERVO:DECREASE;");
+            TransmitCommand("HSERVO-DECREASE;");
         }
 
         private void BT_HServoIncrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("HSERVO:INCREASE;");
+            TransmitCommand("HSERVO-INCREASE;");
         }
 
         private void BT_VServoDecrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("VSERVO:DECREASE;");
+            TransmitCommand("VSERVO-DECREASE;");
         }
 
         private void BT_VServoIncrease_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("VSERVO:INCREASE;");
+            TransmitCommand("VSERVO-INCREASE;");
         }
 
         private void BT_HServoDecreaseCalibration_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("HOFFSET:DECREASE;");
+            TransmitCommand("HOFFSET-DECREASE;");
         }
 
         private void BT_HServoIncreaseCalibration_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("HOFFSET:INCREASE;");
+            TransmitCommand("HOFFSET-INCREASE;");
         }
 
         private void BT_VServoDecreaseCalibration_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("VOFFSET:DECREASE;");
+            TransmitCommand("VOFFSET-DECREASE;");
         }
 
         private void BT_VServoIncreaseCalibration_Click(object sender, RoutedEventArgs e)
         {
-            port.WriteLine("VOFFSET:INCREASE;");
+            TransmitCommand("VOFFSET-INCREASE");
+        }
+
+        private void TransmitCommand(string command)
+        {
+            try
+            {
+                port.WriteLine(command);
+            }
+            catch
+            {
+                
+            }
         }
     }
 }
