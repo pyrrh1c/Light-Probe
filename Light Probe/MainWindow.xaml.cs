@@ -83,7 +83,6 @@ namespace Light_Probe
             {
                 targetBar.Foreground = Brushes.Green;
             }
-
         }
 
         //Methods from the Startup Tab
@@ -199,22 +198,22 @@ namespace Light_Probe
 
         private void BT_HServoDecrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("HSERVO:DECREASE;");
         }
 
         private void BT_HServoIncrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("HSERVO:INCREASE;");
         }
 
         private void BT_VServoDecrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("VSERVO:DECREASE;");
         }
 
         private void BT_VServoIncrease_Click(object sender, RoutedEventArgs e)
         {
-
+            port.WriteLine("VSERVO:INCREASE;");
         }
 
         private void BT_HServoDecreaseCalibration_Click(object sender, RoutedEventArgs e)
@@ -235,11 +234,6 @@ namespace Light_Probe
         private void BT_VServoIncreaseCalibration_Click(object sender, RoutedEventArgs e)
         {
             port.WriteLine("VOFFSET:INCREASE;");
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

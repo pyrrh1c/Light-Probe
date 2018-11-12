@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Light Probe" Height="450" Width="750" Icon="Arduino-Icon-32.ico">
     <Grid>
-        <TabControl SelectionChanged="TabControl_SelectionChanged">
+        <TabControl>
             <TabItem Header="Startup" Name="TAB_Startup">
                 <Grid>
                     <Grid.ColumnDefinitions>
