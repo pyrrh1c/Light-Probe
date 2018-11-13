@@ -52,7 +52,9 @@ namespace Light_Probe
                     PB_LRSensor.Value = int.Parse(message.Substring(24, 3));
                     TB_LRSensor.Text = PB_LRSensor.Value.ToString();
                     PB_hServoAngle.Value = int.Parse(message.Substring(33, 3));
+                    TB_hServoAngle.Text = message.Substring(33, 3);
                     PB_vServoAngle.Value = int.Parse(message.Substring(42, 3));
+                    TB_vServoAngle.Text = message.Substring(42, 3);
                     TB_ulOffset.Text = message.Substring(50, 3);
                     TB_urOffset.Text = message.Substring(58, 3);
                     TB_llOffset.Text = message.Substring(66, 3);

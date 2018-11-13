@@ -63,8 +63,8 @@ void loop()
   llValInt = map(analogRead(llPin), 0, 1024, 0, 100);
   lrValInt = map(analogRead(lrPin), 0, 1024, 0, 100);
 
-  hServCurPos = moveServo(hServo, hServCurPos, ulValInt, urValInt); 
-  vServCurPos = moveServo(vServo, vServCurPos, llValInt, lrValInt);
+  hServCurPos = moveServo(hServo, hServCurPos, ulValInt, urValInt, hOffset); 
+  vServCurPos = moveServo(vServo, vServCurPos, llValInt, lrValInt, vOffset);
 
   hServCurPosStr = map(hServCurPos, 0, 180, 0, 100);
   vServCurPosStr = map(vServCurPos, 0, 180, 0, 100);
@@ -88,7 +88,7 @@ void parseAndExecuteCommands()
 {
     //Load all serial data into the readLine variable.
   while (Serial.available()) {
-    delay(50);  //delay to allow buffer to fill 
+    delay(25);  //delay to allow buffer to fill 
     if (Serial.available() >0) {
       char c = Serial.read();  //gets one byte from serial buffer
       readLine += c; //makes the string line
@@ -105,6 +105,7 @@ void parseAndExecuteCommands()
       if (readLine.indexOf("INCREASE-HOFFSET") >= 0)
       {
         hOffset = hOffset + 1;
+        //hServCurPos = moveServo(hServo, hServCurPos, ulValInt, urValInt, hOffset);
         Serial.print("Horizontal servo offset is now: ");
         Serial.println(hOffset);
         readLine = "";
@@ -112,6 +113,7 @@ void parseAndExecuteCommands()
       else if (readLine.indexOf("DECREASE-HOFFSET") >= 0)
       {
         hOffset = hOffset - 1;
+        //hServCurPos = moveServo(hServo, hServCurPos, ulValInt, urValInt, hOffset);
         Serial.print("Horizontal servo is now: ");
         Serial.println(hOffset);
         readLine = "";
@@ -121,6 +123,7 @@ void parseAndExecuteCommands()
       else if (readLine.indexOf("INCREASE-VOFFSET") >= 0)
       {
         vOffset = vOffset + 1;
+        //vServCurPos = moveServo(vServo, vServCurPos, llValInt, lrValInt, vOffset);
         Serial.print("Vertical Servo Offset is now: ");
         Serial.println(vOffset);
         readLine = "";
@@ -128,6 +131,7 @@ void parseAndExecuteCommands()
       else if (readLine.indexOf("DECREASE-VOFFSET") >= 0)
       {
         vOffset = vOffset - 1;
+        //vServCurPos = moveServo(vServo, vServCurPos, llValInt, lrValInt, vOffset);
         Serial.print("Vertical servo offset is now: ");
         Serial.println(vOffset);
         readLine = "";
@@ -282,18 +286,18 @@ void parseAndExecuteCommands()
 }
 
 //the moveServo function
-int moveServo(Servo s, int sPos, int val1, int val2)
+int moveServo(Servo s, int sPos, int val1, int val2, int offset)
 {
   if ((val1 > val2) and ((sPos + 1) <= 135) and (abs(val1 - val2) > 10))
   {
     sPos = sPos + 1;
-    s.write(sPos);
+    s.write(sPos + offset);
     return(sPos);
   }
   else if ((val1 < val2) and ((sPos - 1)  >= 35) and (abs(val1 - val2) > 10))
   {
     sPos = sPos - 1;
-    s.write(sPos);
+    s.write(sPos + offset);
     return(sPos);
   }
   else
@@ -324,12 +328,12 @@ String ConvertAndPad (int i)
 void printNexLine()
 {
   //Convert the sensor values and servo positions to padded numbers in string format
-  ulValStr = ConvertAndPad(ulValInt);
-  urValStr = ConvertAndPad(urValInt);
-  llValStr = ConvertAndPad(llValInt);
-  lrValStr = ConvertAndPad(lrValInt);
-  hServCurPosStr = ConvertAndPad(map(hServCurPos, 34, 136, 0, 100));
-  vServCurPosStr = ConvertAndPad(map(vServCurPos, 34, 136, 0, 100));
+  ulValStr = ConvertAndPad(ulValInt + ulOffset);
+  urValStr = ConvertAndPad(urValInt + urOffset);
+  llValStr = ConvertAndPad(llValInt + llOffset);
+  lrValStr = ConvertAndPad(lrValInt + lrOffset);
+  hServCurPosStr = ConvertAndPad(map((hServCurPos + hOffset), 34, 136, 0, 100));
+  vServCurPosStr = ConvertAndPad(map((vServCurPos + vOffset), 34, 136, 0, 100));
   ulOffsetStr = ConvertAndPad(ulOffset);
   urOffsetStr = ConvertAndPad(urOffset);
   llOffsetStr = ConvertAndPad(llOffset);
@@ -343,7 +347,7 @@ void printNexLine()
     writeLine += "LL=" + llValStr + ";";
     writeLine += "LR=" + lrValStr + ";";
     writeLine += "hSrv=" + hServCurPosStr + ";";
-    writeLine += "lSrv=" + vServCurPosStr + ";";
+    writeLine += "vSrv=" + vServCurPosStr + ";";
     writeLine += "ulO=" + ulOffsetStr + ";";
     writeLine += "urO=" + urOffsetStr + ";";
     writeLine += "llO=" + llOffsetStr + ";";

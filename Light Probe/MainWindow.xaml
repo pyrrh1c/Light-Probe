@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Light_Probe"
         mc:Ignorable="d"
-        Title="Light Probe" Height="450" Width="750" Icon="Arduino-Icon-32.ico">
+        Title="Light Probe" Height="450" Width="850" Icon="Arduino-Icon-32.ico">
     <Grid>
         <TabControl>
             <TabItem Header="Startup" Name="TAB_Startup">
@@ -108,7 +108,7 @@
                             <Button Name="BT_ULSensorDecrease" Content="Decrease" Click="BT_ULSensorDecrease_Click"/>
                             <Button Name="BT_ULSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_ULSensorIncrease_Click"/>
                         </StackPanel>
-                        <TextBox Name="TB_ulOffset" Text="000" TextAlignment="Center" Margin="0,5,0,0" Height="23"/>
+                        <TextBox Name="TB_ulOffset" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Upper Right Sensor" HorizontalAlignment="Center"/>
@@ -116,7 +116,7 @@
                             <Button Name="BT_URSensorDecrease" Content="Decrease" Click="BT_URSensorDecrease_Click"/>
                             <Button Name="BT_URSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_URSensorIncrease_Click"/>
                         </StackPanel>
-                        <TextBox Name="TB_urOffset" Text="000" TextAlignment="Center" Margin="0,5,0,0" Height="23"/>
+                        <TextBox Name="TB_urOffset" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Lower Left Sensor" HorizontalAlignment="Center"/>
@@ -124,7 +124,7 @@
                             <Button Name="BT_LLSensorDecrease" Content="Decrease" Click="BT_LLSensorDecrease_Click"/>
                             <Button Name="BT_LLSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_LLSensorIncrease_Click"/>
                         </StackPanel>
-                        <TextBox Name="TB_llOffset" Text="000" TextAlignment="Center" Margin="0,5,0,0" Height="23"/>
+                        <TextBox Name="TB_llOffset" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23" IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Lower Right Sensor" HorizontalAlignment="Center"/>
@@ -132,7 +132,7 @@
                             <Button Name="BT_LRSensorDecrease" Content="Decrease" Click="BT_LRSensorDecrease_Click"/>
                             <Button Name="BT_LRSensorIncrease" Content="Increase" Margin="10,0,0,0" Click="BT_LRSensorIncrease_Click"/>
                         </StackPanel>
-                        <TextBox Name="TB_lrOffset" Text="000" TextAlignment="Center" Margin="0,5,0,0" Height="23"/>
+                        <TextBox Name="TB_lrOffset" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23" IsEnabled="False"/>
                     </StackPanel>
                     <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
                     <Label Grid.Column="2" Content="Sensor Analysis" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
@@ -209,7 +209,7 @@
                             <Button Name="BT_HServoDecreaseCalibration" Content="Decrease" Click="BT_HServoDecreaseCalibration_Click"/>
                             <Button Name="BT_HServoIncreaseCalibration" Content="Increase" Margin="10,0,0,0" Click="BT_HServoIncreaseCalibration_Click"/>
                         </StackPanel>
-                        <TextBox Name="TB_hOffset" Text="000" TextAlignment="Center" Margin="0,5,0,0" Height="23"/>
+                        <TextBox Name="TB_hOffset" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23"  IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Vertical Servo" HorizontalAlignment="Center"/>
@@ -217,7 +217,7 @@
                             <Button Name="BT_VServoDecreaseCalibration" Content="Decrease" Click="BT_VServoDecreaseCalibration_Click"/>
                             <Button Name="BT_VServoIncreaseCalibration" Content="Increase" Margin="10,0,0,0" Click="BT_VServoIncreaseCalibration_Click"/>
                         </StackPanel>
-                        <TextBox Name="TB_vOffset" Text="000" TextAlignment="Center" Margin="0,5,0,0" Height="23"/>
+                        <TextBox Name="TB_vOffset" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23"  IsEnabled="False"/>
                     </StackPanel>
                     <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Stretch" Width="5"/>
                     <Label Grid.Column="3" Content="Servo Positions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
@@ -228,6 +228,7 @@
                             <ProgressBar Name="PB_hServoAngle" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
                             <Label Content="180"/>
                         </StackPanel>
+                        <TextBox Name="TB_hServoAngle" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23"  IsEnabled="False"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label Content="Vertical Servo Angle" HorizontalAlignment="Center"/>
@@ -236,6 +237,7 @@
                             <ProgressBar Name="PB_vServoAngle" Height="25" Width="150" Value="50" Foreground="#FFFF0000" Background="#FF0000FF" BorderBrush="#FF0000FF"/>
                             <Label Content="180"/>
                         </StackPanel>
+                        <TextBox Name="TB_vServoAngle" Text="" TextAlignment="Center" Margin="0,5,0,0" Height="23"  IsEnabled="False"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
