@@ -21,11 +21,11 @@ int hOffset, vOffset, ulOffset, urOffset, llOffset, lrOffset;
 
 //Declare the string variables of the sensor values and servo positions
 //These are used for serial communication
-String ulValStr, urValStr, llValStr, lrValStr, hServCurPosStr,vServCurPosStr;
+String ulValStr, urValStr, llValStr, lrValStr, hServCurPosStr,vServCurPosStr,ulOffsetStr,urOffsetStr,llOffsetStr,lrOffsetStr,hServoOffset,vServoOffset;
 
 //Declare the string variable used to send serial data
-String nextLine;
-String line;
+String writeLine;
+String readLine;
 
 //Declare the manual mode status variable
 bool manualMode;
@@ -47,196 +47,14 @@ void setup()
   displayWelcomeMessage();
 }
 
+
 //###########
 // Main Loop
 //###########
 
 void loop() 
 {
-  //Load all serial data into the line variable.
-  while (Serial.available()) {
-    delay(3);  //delay to allow buffer to fill 
-    if (Serial.available() >0) {
-      char c = Serial.read();  //gets one byte from serial buffer
-      line += c; //makes the string line
-    }
-  }
-  //Check if the line has data.
-  if (line != "")
-  {
-    //Check if the line has a command
-    if(checkForCommand(line))
-    {
-      //Horizontal Servo Offset
-      if (line.indexOf("INCREASE-HOFFSET") >= 0)
-      {
-        hOffset = hOffset + 1;
-        Serial.print("Horizontal servo offset is now: ");
-        Serial.println(hOffset);
-        line = "";
-      }
-      else if (line.indexOf("DECREASE-HOFFSET") >= 0)
-      {
-        hOffset = hOffset - 1;
-        Serial.print("Horizontal servo is now: ");
-        Serial.println(hOffset);
-        line = "";
-      }
-
-      //Vertical Servo Offset
-      else if (line.indexOf("INCREASE-VOFFSET") >= 0)
-      {
-        vOffset = vOffset + 1;
-        Serial.print("Vertical Servo Offset is now: ");
-        Serial.println(vOffset);
-        line = "";
-      }
-      else if (line.indexOf("DECREASE-VOFFSET") >= 0)
-      {
-        vOffset = vOffset - 1;
-        Serial.print("Vertical servo offset is now: ");
-        Serial.println(vOffset);
-        line = "";
-      }
-
-      //Upper Left Sensor
-      else if (line.indexOf("INCREASE-ULOFFSET") >= 0)
-      {
-        ulOffset = ulOffset + 1;
-        Serial.print("Upper left sensor offset is now: ");
-        Serial.println(ulOffset);
-        line = "";
-      }
-      else if (line.indexOf("DECREASE-ULOFFSET") >= 0)
-      {
-        ulOffset = ulOffset - 1;
-        Serial.print("Upper left sensor is now: ");
-        Serial.println(ulOffset);
-        line = "";
-      }
-
-      //Upper Right Sensor
-      else if (line.indexOf("INCREASE-UROFFSET") >= 0)
-      {
-        urOffset = urOffset + 1;
-        Serial.print("Upper right sensor offset is now: ");
-        Serial.println(urOffset);
-        line = "";
-      }
-      else if (line.indexOf("DECREASE-UROFFSET") >= 0)
-      {
-        urOffset = urOffset - 1;
-        Serial.print("Upper right sensor is now: ");
-        Serial.println(urOffset);
-        line = "";
-      }
-      
-      //Lower Left Sensor
-      else if (line.indexOf("INCREASE-LLOFFSET") >= 0)
-      {
-        llOffset = llOffset + 1;
-        Serial.print("Lower left sensor offset is now: ");
-        Serial.println(llOffset);
-        line = "";
-      }
-      else if (line.indexOf("DECREASE-LLOFFSET") >= 0)
-      {
-        llOffset = llOffset - 1;
-        Serial.print("Lower left sensor is now: ");
-        Serial.println(llOffset);
-        line = "";
-      }
-
-      //Lower Right Sensor
-      else if (line.indexOf("INCREASE-LROFFSET") >= 0)
-      {
-        lrOffset = lrOffset + 1;
-        Serial.print("Lower right sensor offset is now: ");
-        Serial.println(lrOffset);
-        line = "";
-      }
-      else if (line.indexOf("DECREASE-LROFFSET") >= 0)
-      {
-        lrOffset = lrOffset - 1;
-        Serial.print("Lower right sensor is now: ");
-        Serial.println(lrOffset);
-        line = "";
-      }
-
-      //Manual Override
-      else if (line.indexOf("ENABLE-MANUALMODE") >= 0)
-      {
-        manualMode = true;
-        Serial.println("Manual mode is: on");
-        line = "";
-      }
-      else if (line.indexOf("DISABLE-MANUALMODE") >= 0)
-      {
-        manualMode = false;
-        Serial.println("Manual mode is: off");
-        line = "";
-      }
-      
-      //Transmitting of Values over Serial Port
-      else if (line.indexOf("ENABLE-TRANSMITVALUES") >= 0)
-      {
-        transmitValues = true;
-        Serial.println("Transmission of values: on");
-        line = "";
-      }
-      else if (line.indexOf("DISABLE-TRANSMITVALUES") >= 0)
-      {
-        transmitValues = false;
-        Serial.println("Transmission of values: off");
-        line = "";
-      }      
-
-      //Show all current calibration data
-      else if (line.indexOf("SHOW-CALIBRATION") >= 0)
-      {
-        Serial.println("Current calibration data");
-        Serial.print("hOffset is: ");
-        Serial.println(hOffset);
-        Serial.print("vOffset is: ");
-        Serial.println(vOffset);
-        Serial.print("ulOffset is: ");
-        Serial.println(ulOffset);
-        Serial.print("urOffset is: ");
-        Serial.println(urOffset);
-        Serial.print("llOffset is: ");
-        Serial.println(llOffset);
-        Serial.print("lrOffset is: ");
-        Serial.println(lrOffset);
-        Serial.print("Manual mode: ");
-        if (manualMode == false)
-        {
-          Serial.println("off");
-        } else {
-          Serial.println("on");
-        }
-        line = "";
-      }
-
-      //Show the help menu
-      else if (line.indexOf("SHOW-HELP") >= 0)
-      {
-        displayWelcomeMessage();
-        line = "";
-      }
-
-      //Handle bad data
-      else
-      {
-        Serial.println("An invalid command received."); 
-        line = "";
-      }
-    }
-    else
-    {
-      Serial.println("Invalid serial data received.");
-      line = "";
-    }
-  } 
+  parseAndExecuteCommands(); // Checks for any pending serial data, checks for commands, and executes them.
   
   //Read the sensor values.
   //The C# input expects ranges between 0 and 100, so we map values accordingly
@@ -260,10 +78,210 @@ void loop()
   delay(100);
 }
 
+
 //##################################
 // Function Declarations Begin Here
 //##################################
 
+//the parseAndExecuteCommands function
+void parseAndExecuteCommands()
+{
+    //Load all serial data into the readLine variable.
+  while (Serial.available()) {
+    delay(50);  //delay to allow buffer to fill 
+    if (Serial.available() >0) {
+      char c = Serial.read();  //gets one byte from serial buffer
+      readLine += c; //makes the string line
+    }
+  }
+
+  //Check if the line has data.
+  if (readLine != "")
+  {
+    //Check if the line has a command
+    if(checkForCommand(readLine))
+    {
+      //Horizontal Servo Offset
+      if (readLine.indexOf("INCREASE-HOFFSET") >= 0)
+      {
+        hOffset = hOffset + 1;
+        Serial.print("Horizontal servo offset is now: ");
+        Serial.println(hOffset);
+        readLine = "";
+      }
+      else if (readLine.indexOf("DECREASE-HOFFSET") >= 0)
+      {
+        hOffset = hOffset - 1;
+        Serial.print("Horizontal servo is now: ");
+        Serial.println(hOffset);
+        readLine = "";
+      }
+
+      //Vertical Servo Offset
+      else if (readLine.indexOf("INCREASE-VOFFSET") >= 0)
+      {
+        vOffset = vOffset + 1;
+        Serial.print("Vertical Servo Offset is now: ");
+        Serial.println(vOffset);
+        readLine = "";
+      }
+      else if (readLine.indexOf("DECREASE-VOFFSET") >= 0)
+      {
+        vOffset = vOffset - 1;
+        Serial.print("Vertical servo offset is now: ");
+        Serial.println(vOffset);
+        readLine = "";
+      }
+
+      //Upper Left Sensor
+      else if (readLine.indexOf("INCREASE-ULOFFSET") >= 0)
+      {
+        ulOffset = ulOffset + 1;
+        Serial.print("Upper left sensor offset is now: ");
+        Serial.println(ulOffset);
+        readLine = "";
+      }
+      else if (readLine.indexOf("DECREASE-ULOFFSET") >= 0)
+      {
+        ulOffset = ulOffset - 1;
+        Serial.print("Upper left sensor is now: ");
+        Serial.println(ulOffset);
+        readLine = "";
+      }
+
+      //Upper Right Sensor
+      else if (readLine.indexOf("INCREASE-UROFFSET") >= 0)
+      {
+        urOffset = urOffset + 1;
+        Serial.print("Upper right sensor offset is now: ");
+        Serial.println(urOffset);
+        readLine = "";
+      }
+      else if (readLine.indexOf("DECREASE-UROFFSET") >= 0)
+      {
+        urOffset = urOffset - 1;
+        Serial.print("Upper right sensor is now: ");
+        Serial.println(urOffset);
+        readLine = "";
+      }
+      
+      //Lower Left Sensor
+      else if (readLine.indexOf("INCREASE-LLOFFSET") >= 0)
+      {
+        llOffset = llOffset + 1;
+        Serial.print("Lower left sensor offset is now: ");
+        Serial.println(llOffset);
+        readLine = "";
+      }
+      else if (readLine.indexOf("DECREASE-LLOFFSET") >= 0)
+      {
+        llOffset = llOffset - 1;
+        Serial.print("Lower left sensor is now: ");
+        Serial.println(llOffset);
+        readLine = "";
+      }
+
+      //Lower Right Sensor
+      else if (readLine.indexOf("INCREASE-LROFFSET") >= 0)
+      {
+        lrOffset = lrOffset + 1;
+        Serial.print("Lower right sensor offset is now: ");
+        Serial.println(lrOffset);
+        readLine = "";
+      }
+      else if (readLine.indexOf("DECREASE-LROFFSET") >= 0)
+      {
+        lrOffset = lrOffset - 1;
+        Serial.print("Lower right sensor is now: ");
+        Serial.println(lrOffset);
+        readLine = "";
+      }
+
+      //Manual Override
+      else if (readLine.indexOf("ENABLE-MANUALMODE") >= 0)
+      {
+        manualMode = true;
+        Serial.println("Manual mode is: on");
+        readLine = "";
+      }
+      else if (readLine.indexOf("DISABLE-MANUALMODE") >= 0)
+      {
+        manualMode = false;
+        Serial.println("Manual mode is: off");
+        readLine = "";
+      }
+      
+      //Transmitting of Values over Serial Port
+      else if (readLine.indexOf("ENABLE-TRANSMITVALUES") >= 0)
+      {
+        transmitValues = true;
+        Serial.println("Transmission of values: on");
+        readLine = "";
+      }
+      else if (readLine.indexOf("DISABLE-TRANSMITVALUES") >= 0)
+      {
+        transmitValues = false;
+        Serial.println("Transmission of values: off");
+        readLine = "";
+      }      
+
+      //Show all current calibration data
+      else if (readLine.indexOf("SHOW-CALIBRATION") >= 0)
+      {
+        Serial.println("Current calibration data");
+        Serial.print("hOffset is: ");
+        Serial.println(hOffset);
+        Serial.print("vOffset is: ");
+        Serial.println(vOffset);
+        Serial.print("ulOffset is: ");
+        Serial.println(ulOffset);
+        Serial.print("urOffset is: ");
+        Serial.println(urOffset);
+        Serial.print("llOffset is: ");
+        Serial.println(llOffset);
+        Serial.print("lrOffset is: ");
+        Serial.println(lrOffset);
+        Serial.print("Manual mode: ");
+        if (manualMode == false)
+        {
+          Serial.println("off");
+        } else {
+          Serial.println("on");
+        }
+        readLine = "";
+      }
+
+      //Show the help menu
+      else if (readLine.indexOf("SHOW-HELP") >= 0)
+      {
+        displayWelcomeMessage();
+        readLine = "";
+      }
+
+      //Handle bad data
+      else
+      {
+        transmitValues = false;
+        //Serial.println("");
+        //Serial.println("Transmission of values stopped!");
+        //Serial.println("");
+        displayWelcomeMessage();
+        readLine = "";
+      }
+    }
+    else
+    {
+      transmitValues = false;
+      //Serial.println("");
+      //Serial.println("Transmission of values stopped.!");
+      //Serial.println("");
+      displayWelcomeMessage();
+      readLine = "";
+    }
+  } 
+}
+
+//the moveServo function
 int moveServo(Servo s, int sPos, int val1, int val2)
 {
   if ((val1 > val2) and ((sPos + 1) <= 135) and (abs(val1 - val2) > 10))
@@ -298,7 +316,7 @@ String ConvertAndPad (int i)
   String s = String(i);
   do
   {
-    s = "0" + s;
+    s = " " + s;
   } while (s.length() < 3);
   return s;
 }
@@ -312,23 +330,34 @@ void printNexLine()
   lrValStr = ConvertAndPad(lrValInt);
   hServCurPosStr = ConvertAndPad(map(hServCurPos, 34, 136, 0, 100));
   vServCurPosStr = ConvertAndPad(map(vServCurPos, 34, 136, 0, 100));
+  ulOffsetStr = ConvertAndPad(ulOffset);
+  urOffsetStr = ConvertAndPad(urOffset);
+  llOffsetStr = ConvertAndPad(llOffset);
+  lrOffsetStr = ConvertAndPad(lrOffset);
+  hServoOffset = ConvertAndPad(hOffset);
+  vServoOffset = ConvertAndPad(vOffset);
   
   //assemble all the values into a single line
-  nextLine = 
-    "UL=" + ulValStr + ";" +
-    "UR=" + urValStr + ";" +
-    "LL=" + llValStr + ";" +
-    "LR=" + lrValStr + ";" +
-    "hSrv=" + hServCurPosStr + ";" +
-    "lSrv=" + vServCurPosStr + ";";
+  writeLine = "UL=" + ulValStr + ";";
+    writeLine += "UR=" + urValStr + ";";
+    writeLine += "LL=" + llValStr + ";";
+    writeLine += "LR=" + lrValStr + ";";
+    writeLine += "hSrv=" + hServCurPosStr + ";";
+    writeLine += "lSrv=" + vServCurPosStr + ";";
+    writeLine += "ulO=" + ulOffsetStr + ";";
+    writeLine += "urO=" + urOffsetStr + ";";
+    writeLine += "llO=" + llOffsetStr + ";";
+    writeLine += "lrO=" + lrOffsetStr + ";";
+    writeLine += "hOff=" + hServoOffset + ";";
+    writeLine += "vOff=" + vServoOffset + ";";
   
   //write the assembled message to the serial port
-  Serial.println(nextLine);
+  Serial.println(writeLine);
 }
 
-bool checkForCommand(String line)
+bool checkForCommand(String testLine)
 {
-  if((line.indexOf("-")) and (line.indexOf(";") > 0))
+  if((testLine.indexOf("-")) and (testLine.indexOf(";") > 0))
   {
     return true;
   }
@@ -343,18 +372,18 @@ void displayWelcomeMessage()
   Serial.println("Welcome to Light-Probe 1.0");
   Serial.println("==========================");
   Serial.println("The following commands are avaialable:");
-  Serial.println("INCREASE-HOFFFSET");
-  Serial.println("DECREASE-HOFFFSET");
-  Serial.println("INCREASE-VOFFFSET");
-  Serial.println("DECREASE-VOFFFSET");
-  Serial.println("INCREASE-ULOFFFSET");
-  Serial.println("DECREASE-ULOFFFSET");
-  Serial.println("INCREASE-UROFFFSET");
-  Serial.println("DECREASE-UROFFFSET");
-  Serial.println("INCREASE-LLOFFFSET");
-  Serial.println("DECREASE-LLOFFFSET");
-  Serial.println("INCREASE-LROFFFSET");
-  Serial.println("DECREASE-LROFFFSET");
+  Serial.println("INCREASE-HOFFSET");
+  Serial.println("DECREASE-HOFFSET");
+  Serial.println("INCREASE-VOFFSET");
+  Serial.println("DECREASE-VOFFSET");
+  Serial.println("INCREASE-ULOFFSET");
+  Serial.println("DECREASE-ULOFFSET");
+  Serial.println("INCREASE-UROFFSET");
+  Serial.println("DECREASE-UROFFSET");
+  Serial.println("INCREASE-LLOFFSET");
+  Serial.println("DECREASE-LLOFFSET");
+  Serial.println("INCREASE-LROFFSET");
+  Serial.println("DECREASE-LROFFSET");
   Serial.println("ENABLE-MANUALMODE");
   Serial.println("DISABLE-MANUALMODE");
   Serial.println("ENABLE-TRANSMITVALUES");
