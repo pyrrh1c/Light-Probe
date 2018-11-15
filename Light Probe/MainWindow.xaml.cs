@@ -285,6 +285,11 @@ namespace Light_Probe
                 
             }
         }
+
+        private void BT_CliSend_Click(object sender, RoutedEventArgs e)
+        {
+            TB_CliResults.Text = "";
+        }
     }
 }
 public static class ExtensionMethods
