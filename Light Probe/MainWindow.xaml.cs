@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.IO.Ports;
+using System.Text.RegularExpressions;
 
 namespace Light_Probe
 {
@@ -37,11 +38,20 @@ namespace Light_Probe
         private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string message = "";
+
             this.Dispatcher.Invoke(() =>
             {
                 try
                 {
                     message = port.ReadLine();
+                    message = Regex.Replace(message, @"\t|\n|\r", "");
+                    LB_CliResults.Items.Insert(LB_CliResults.Items.Count, message);
+
+                    if (LB_CliResults.Items.Count >= 30)
+                    {
+                        LB_CliResults.Items.RemoveAt(0);
+                    }
+
                     TB_LastMessage.Text = message;
                     PB_ULSensor.Value = int.Parse(message.Substring(3, 3));
                     TB_ULSensor.Text = PB_ULSensor.Value.ToString();
@@ -288,7 +298,8 @@ namespace Light_Probe
 
         private void BT_CliSend_Click(object sender, RoutedEventArgs e)
         {
-            TB_CliResults.Text = "";
+            LB_CliResults.Items.Clear();
+            port.WriteLine(TB_CliEntry.Text);
         }
     }
 }
