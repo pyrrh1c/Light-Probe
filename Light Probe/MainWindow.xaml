@@ -251,9 +251,9 @@
                         <ColumnDefinition Width="7*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="TB_CliEntry" Text="Enter a command" Margin="5,5,5,0" Background="Black" Foreground="Green" FontFamily="Consolas" FontSize="14" />
+                    <TextBox Name="TB_CliEntry" Text="SHOW-HELP;" Margin="5,5,5,0" Background="Black" Foreground="Green" FontFamily="Consolas" FontSize="14" />
                     <Button Name="BT_CliSend" Content="Send Command" Margin ="0,5,5,0" Grid.Column="1" Click="BT_CliSend_Click"/>
-                    <TextBox Name="TB_CliResults" Text="Test" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" Background="Black" Foreground="Green" FontFamily="Consolas" FontSize="14" IsReadOnly="True"/>
+                    <TextBox Name="TB_CliResults" Text="" Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" Background="Black" Foreground="Green" FontFamily="Consolas" FontSize="14" IsReadOnly="True"/>
                 </Grid>
             </TabItem>
         </TabControl>
