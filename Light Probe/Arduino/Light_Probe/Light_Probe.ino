@@ -1,8 +1,13 @@
 //########################
 // Includes and Variables
 //########################
-
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
 #include <Servo.h>
+
+//LCD address is 0x37. It has 20 columns and 4 rows.
+LiquidCrystal_I2C lcd(0x3f, 20, 4);
+int lcdInterval = 0;
 
 //Declase the servo's
 Servo hServo, vServo; 
@@ -39,6 +44,10 @@ void setup()
 {
   //Start serial communication
   Serial.begin(9600);
+
+  // initialize the LCD
+  lcd.begin();
+  lcd.cursor();
 
   //Initialize the servos
   initializeServo(hServo, 9);
@@ -346,17 +355,30 @@ void printNexLine()
     writeLine += "UR=" + urValStr + ";";
     writeLine += "LL=" + llValStr + ";";
     writeLine += "LR=" + lrValStr + ";";
-    writeLine += "hSrv=" + hServCurPosStr + ";";
-    writeLine += "vSrv=" + vServCurPosStr + ";";
-    writeLine += "ulO=" + ulOffsetStr + ";";
-    writeLine += "urO=" + urOffsetStr + ";";
-    writeLine += "llO=" + llOffsetStr + ";";
-    writeLine += "lrO=" + lrOffsetStr + ";";
-    writeLine += "hOff=" + hServoOffset + ";";
-    writeLine += "vOff=" + vServoOffset + ";";
+    writeLine += "HSRV=" + hServCurPosStr + ";";
+    writeLine += "VSRV=" + vServCurPosStr + ";";
+    writeLine += "ULO=" + ulOffsetStr + ";";
+    writeLine += "URO=" + urOffsetStr + ";";
+    writeLine += "LLO=" + llOffsetStr + ";";
+    writeLine += "LRO=" + lrOffsetStr + ";";
+    writeLine += "HOFF=" + hServoOffset + ";";
+    writeLine += "VOFF=" + vServoOffset + ";";
   
   //write the assembled message to the serial port
   Serial.println(writeLine);
+
+  //May want to split this off into a function later...
+  if (lcdInterval <=4)
+  {
+    lcdInterval ++;
+  }
+  else
+  {
+    lcdInterval = 0;
+    lcd.clear();
+    lcd.print(writeLine);
+  }
+
 }
 
 bool checkForCommand(String testLine)
